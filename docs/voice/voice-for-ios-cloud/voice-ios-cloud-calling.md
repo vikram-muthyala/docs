@@ -10,9 +10,9 @@ next:
     - voice-ios-cloud-video-calling
 ---
 
-The Sinch SDK supports four types of calls: _app-to-app (audio or video)_, _app-to-phone_, _app-to-sip_ and _conference_ calls. The SINCallClient is the entry point for the calling functionality of the Sinch SDK.
+The Sinch SDK supports four types of calls: _app-to-app_ (audio or video), _app-to-phone_, _app-to-sip_ and _conference_ calls. The `SINCallClient` is the entry point for the calling functionality of the Sinch SDK.
 
-Calls are placed through the `SINCallClient` and events are received using the `SINCallClientDelegate`. The call client is owned by the SinchClient and accessed using `[sinchClient callClient]`. Calling is not enabled by default.
+Calls are placed using `SINCallClient` and events are received via `SINCallClientDelegate`. The call client (`SINCallClient`) is owned by the _Sinch client_ (`SINClient`) and accessed using `-[SINClient callClient]`. Calling is not enabled by default.
 
 Enable calling with the following method before starting the `SINCallClient`:
 
