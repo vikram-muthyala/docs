@@ -6,7 +6,7 @@ excerpt: >-
 hidden: false
 next:
   pages:
-    - voice-ios-cloud-audio-handling
+    - voice-ios-cloud-ios-audio-session
 ---
 
 When an application is no longer in the foreground, the user must be notified of an incoming call by means of either a local notification or a remote push notification.

@@ -27,9 +27,9 @@ call.delegate = self; // Assign delegate to observe call state changes
 
 A call object is returned, containing details about the participants in the call, call details such as start time, call state, possible errors, and so on.
 
-Assuming the callee’s device is available and responsive, the delegate method `callDidProgress:` will be called. It notifies the application that the outbound call is progressing. If a progress tone should be played, this is where it should be started. We recommend that you use the available functionality provided by the Sinch SDK to play sounds such as ringtones (`SINAudioController`). See \[Playing Ringtones\]\[\] for details.
+Assuming the callee’s device is available and responsive, the delegate method `callDidProgress:` will be called. It notifies the application that the outbound call is progressing. If a progress tone should be played, this is where it should be started. We recommend that you use the available functionality provided by the Sinch SDK to play sounds such as ringtones (`SINAudioController`), see [Playing Ringtones](doc:voice-ios-cloud-playing-ringtones).
 
-When the other party answers, the `callDidEstablish:` call delegate method is called. Now, the users can start talking. If a progress tone has been initiated, it should be stopped now, in the delegate callback method.
+When the other party answers, the delegate method `callDidEstablish:` method will be called. Now, the users can start talking. If a progress tone has previously been initiated, it should be stopped now, in the delegate callback method.
 
 ## Setting Up an _app-to-phone_ Call
 
