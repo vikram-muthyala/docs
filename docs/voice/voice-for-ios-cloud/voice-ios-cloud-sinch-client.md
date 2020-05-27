@@ -47,7 +47,7 @@ sinchClient.delegate = ... ;
 
 > 📘
 >
-> If the application is meant to only make outgoing calls but not receive incoming calls, the client will be ready to make calls after the delegate has received the callback `clientDidStart:`.
+> If the application is meant to only make outbound calls but not receive incoming calls, the client will be ready to make calls after the delegate has received the callback `clientDidStart:`.
 
 > 📘
 >

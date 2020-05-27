@@ -26,7 +26,7 @@ id<SINCall> call = [callClient callUserWithId:@"<remote user id>"];
 
 A call object is returned, containing details about the participants in the call, call details such as start time, call state, possible errors, and so on.
 
-Assuming the callee’s device is available and responsive, the delegate method `callDidProgress:` will be called. It notifies the application that the outgoing call is progressing. If a progress tone should be played, this is where it should be started. We recommend that you use the available functionality provided by the Sinch SDK to play sounds such as ringtones (`SINAudioController`). See \[Playing Ringtones\]\[\] for details.
+Assuming the callee’s device is available and responsive, the delegate method `callDidProgress:` will be called. It notifies the application that the outbound call is progressing. If a progress tone should be played, this is where it should be started. We recommend that you use the available functionality provided by the Sinch SDK to play sounds such as ringtones (`SINAudioController`). See \[Playing Ringtones\]\[\] for details.
 
 When the other party answers, the `callDidEstablish:` call delegate method is called. Now, the users can start talking. If a progress tone has been initiated, it should be stopped now, in the delegate callback method.
 
