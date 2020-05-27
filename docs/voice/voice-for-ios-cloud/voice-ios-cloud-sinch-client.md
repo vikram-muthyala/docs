@@ -45,11 +45,11 @@ sinchClient.delegate = ... ;
 
 ```
 
-> ℹ
+> 📘
 >
 > If the application is meant to only make outgoing calls but not receive incoming calls, the client will be ready to make calls after the delegate has received the callback `clientDidStart:`.
 
-> ℹ
+> 📘
 >
 > If the application is meant to receive incoming calls while not running in foreground, [Push Notifications](doc:voice-ios-cloud-local-and-remote-push-notifications) are required.
 
