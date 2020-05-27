@@ -21,6 +21,7 @@ Use the call client to start the call using the method `callUserWithId:`, passin
 ```objectivec
 id<SINCallClient> callClient = [sinchClient callClient];
 id<SINCall> call = [callClient callUserWithId:@"<remote user id>"];
+call.delegate = self; // Assign delegate to observe call state changes
 // Or for video call: id<SINCall> call = [callClient callUserVideoWithId:@"<remote user id>"];
 ```
 
