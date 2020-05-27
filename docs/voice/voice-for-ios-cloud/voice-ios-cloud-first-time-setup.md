@@ -21,7 +21,7 @@ Contact [Sinch support](mailto:support@sinch.com). Please add the phrase _"CLOSE
 
 ### Sinch SDK as a CocoaPod
 
-> **Note**
+> 📘
 >
 > CocoaPods version will be available only for Production releases (i.e. not closed beta releases)
 
