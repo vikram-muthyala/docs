@@ -14,7 +14,7 @@ The Sinch SDK supports four types of calls: _app-to-app_ (audio or video), _app-
 
 Calls are placed using `SINCallClient` and events are received via `SINCallClientDelegate`. The call client (`SINCallClient`) is owned by the _Sinch client_ (`SINClient`) and accessed using `-[SINClient callClient]`.
 
-## Setting up an _app-to-app_ call
+## Setting Up an _app-to-app_ Call
 
 Use the call client to start the call using the method `callUserWithId:`, passing the user identifier of the callee (the destination user) as an argument.
 
@@ -31,7 +31,7 @@ Assuming the callee’s device is available and responsive, the delegate method 
 
 When the other party answers, the `callDidEstablish:` call delegate method is called. Now, the users can start talking. If a progress tone has been initiated, it should be stopped now, in the delegate callback method.
 
-## Setting up an _app-to-phone_ call
+## Setting Up an _app-to-phone_ Call
 
 An _app-to-phone_ call is a call that is made to a phone on the regular telephone network. Setting up an _app-to-phone_ call is not much different from setting up an _app-to-app_ call.
 
@@ -41,7 +41,7 @@ Placing an _app-to-phone_ call requires an account with credits; topping up cred
 
 _App-to-phone_ calls can be tested by calling the following test number: _+46000000000_. When placing a call to this number, you will hear a voice prompt stating that the call has been connected, and shortly after that the call will automatically be ended.
 
-## Setting up an _app-to-sip_ call
+## Setting Up an _app-to-sip_ Call
 
 An _app-to-sip_ call is a call that is made to a SIP server. Setting up an _app-to-sip_ call is not much different from setting up an _app-to-app_ call. Instead of invoking the `callUserWithId:` method, invoke the `callSIP:` method on the `SINCallClient` object. The SIP identity follows the form of email addresses (<user@domain>), for example <Alice@SipProviderA.com>.
 
@@ -52,7 +52,7 @@ id<SINCall> call = [callClient callSIP:@"<SIP Identity>"];
 
 When customized SIP headers are passed as a parameter, the headers should be prefixed with ‘x-’. If the SIP server reported any errors, the `SINCallDetails` object will provide an error with _SINErrorDomainSIP_.
 
-## Setting up a _conference_ call
+## Setting Up a _conference_ Call
 
 A _conference_ call can be made to connect a user to a conference room where multiple users can be connected at the same time. The identifier for a conference room may not be longer than 64 characters.
 
@@ -63,7 +63,7 @@ id<SINCall> call = [callClient callConferenceWithId:@"<conferenceId>"];
 
 It is also possible to connect users to a conference call via the [Sinch REST API](doc:voice-rest-api-onprem-calling-api#text-to-speech).
 
-## Handling incoming calls
+## Handling Incoming Calls
 
 To act on the incoming calls, implement the protocol _SINCallClientDelegate_ and assign a delegate to the call client. The call client delegate is notified using the delegate method `didReceiveIncomingCall:` as calls come in to the device.
 
@@ -95,11 +95,11 @@ If [VoIP push notifications](doc:voice-ios-cloud-local-and-remote-push-notificat
 >
 > See \[Local and Remote Push Notifications\]\[\] for further details on how to present and handle a user notification for an incoming call when the application is in the background.
 
-### Incoming video call
+### Incoming Video Call
 
 When incoming call is a video call, the `didReceiveIncomingCall` delegate method will be executed, just like for the incoming audio call. The `SINCallDetails` object provides a `isVideoOffered` property to check whether the call offers a video track. See the \[Video calling\] section for details on how to add video views.
 
-### Answering an incoming call
+### Answering an Incoming Call
 
 To answer a call, use the `answer` method on the call to accept it. If a ringtone was previously played, it should be stopped now.
 
@@ -114,7 +114,7 @@ User presses the answer button:
 
 Now, the clients on both ends establish the connection. When the call is established and the voice streams are running in both directions, the `callDidEstablish:` delegate method is called.
 
-### Declining an incoming call
+### Declining an Incoming Call
 
 If the call should not be answered, use the `hangup` method on the call to decline. The caller is notified that the incoming call was denied. If a ringtone was previously played, it should be stopped now.
 
@@ -127,7 +127,7 @@ User presses the hangup button:
 // Stop playing ringing tone
 ```
 
-## Disconnecting a call
+## Disconnecting a Call
 
 When the user wants to disconnect an ongoing call, use the `hangup` method. Either user taking part in a call can disconnect it.
 
