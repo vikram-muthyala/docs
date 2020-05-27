@@ -12,17 +12,11 @@ next:
 
 The Sinch SDK supports four types of calls: _app-to-app_ (audio or video), _app-to-phone_, _app-to-sip_ and _conference_ calls. The `SINCallClient` is the entry point for the calling functionality of the Sinch SDK.
 
-Calls are placed using `SINCallClient` and events are received via `SINCallClientDelegate`. The call client (`SINCallClient`) is owned by the _Sinch client_ (`SINClient`) and accessed using `-[SINClient callClient]`. Calling is not enabled by default.
-
-Enable calling with the following method before starting the `SINCallClient`:
-
-```objectivec
-[sinchClient setSupportCalling:YES];
-```
+Calls are placed using `SINCallClient` and events are received via `SINCallClientDelegate`. The call client (`SINCallClient`) is owned by the _Sinch client_ (`SINClient`) and accessed using `-[SINClient callClient]`.
 
 ## Setting up an _app-to-app_ call
 
-Use the call client to start the call using the `callUserWithId:` method by passing the user identifier of the callee (the user receiving a call) as an argument.
+Use the call client to start the call using the method `callUserWithId:`, passing the user identifier of the callee (the destination user) as an argument.
 
 ```objectivec
 id<SINCallClient> callClient = [sinchClient callClient];
