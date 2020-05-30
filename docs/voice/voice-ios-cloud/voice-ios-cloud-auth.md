@@ -159,7 +159,7 @@ client.delegate = ...;
 
 Depending on your security requirements, you may want to limit a client registration time-to-live (TTL). Limiting the client registration will effectively limit the Sinch client acting on behalf of the _User_ on the particular device after the TTL has expired. I.e. effectively preventing the client to make or receive calls after the registration TTL has expired.
 
-To limit the registration in time, create the _JWT_ as described in the sections above, but with the additional claim `sinch:rtc:instance:exp`.
+To limit the registration in time, create the _JWT_ as described in the sections above, but with the additional claim `sinch:rtc:instance:exp`. The value for this claim should be in the same format as claims `iat` and `exp`, i.e. a JSON numeric value representing the number of seconds since _Unix Epoch_ (UTC).
 
 __Example JWT Payload__:
 
