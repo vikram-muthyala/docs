@@ -153,3 +153,41 @@ client.delegate = ...;
 
 > **Note**
 > The client _MAY_ also ask for a registration token on subsequent starts.
+
+
+## Limiting Client Registration with Expiration Time
+
+Depending on your security requirements, you may want to limit a client registration time-to-live (TTL). Limiting the client registration will effectively limit the Sinch client acting on behalf of the _User_ on the particular device after the TTL has expired. I.e. effectively preventing the client to make or receive calls after the registration TTL has expired.
+
+To limit the registration in time, create the _JWT_ as described in the sections above, but with the additional claim `sinch:rtc:instance:exp`.
+
+__Example JWT Payload__:
+
+```
+{
+  "iss": "//rtc.sinch.com/applications/a32e5a8d-f7d8-411c-9645-9038e8dd051d",
+  "sub": "//rtc.sinch.com/applications/a32e5a8d-f7d8-411c-9645-9038e8dd051d/users/foo",
+  "iat": 1514862245,
+  "exp": 1514862845,
+  "nonce":"6b438bda-2d5c-4e8c-92b0-39f20a94b34e",
+  "sinch:rtc:instance:exp": 1515035045
+}
+```
+
+**IMPORTANT**: TTL of the registration must be `>=` 48 hours. In other words: `sinch:rtc:instance:exp - iat >= 48 * 3600`.
+
+> 📘
+> When a Sinch client registers with a _User_ registration token, the registration is also bound to the particular device. I.e. limiting the TTL of the registration is device-specific and does not affect other potential registrations for the same _User_ but on other devices.
+
+> ❗️
+> Do not mix up the claim `sinch:rtc:instance:exp` with the standard JWT claim [`exp`](https://tools.ietf.org/html/rfc7519#section-4.1.4). The former is for limiting the client registration. The latter is only for limiting the TTL of the JWT itself.
+
+
+### Automatic Extension of Client Registration Time-to-Live (TTL)
+
+The Sinch client will automatically request to extend the TTL of its registration by invoking `-[SINClientDelegate client:requiresRegistrationCredentials:]` (just as it does on initial start and first registration.)
+
+The request to extend the client registration TTL is triggered when the Sinch client is started and the expiry of TTL is detected to be _near_ in the future. _"Near in the future"_ is subject to internal implementation details, but the Sinch client will try to eagerly extend its registration and will adjust the interval according to the TTL.
+
+> ❗️
+> It is not allowed to provide a JWT without specifying registration TTL if a JWT _with_ a limited TTL has been used before for the given _User_ on the specific device. I.e. once a Sinch client registration has initially been constrained with a TTL, the registration can be extended in time, but not extended indefinitely.
