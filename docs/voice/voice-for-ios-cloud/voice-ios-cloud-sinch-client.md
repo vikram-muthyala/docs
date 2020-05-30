@@ -22,7 +22,9 @@ id<SINClient> sinchClient = [Sinch clientWithApplicationKey:@"<application key>"
                                                      userId:@"<user id>"];
 ```
 
-The _Application Key_ is obtained from the [Sinch Developer Dashboard - Apps](https://portal.sinch.com/#/apps). The _User ID_ should uniquely identify the user on the particular device.
+* The _Application Key_ is obtained from the [Sinch Developer Dashboard - Apps](https://portal.sinch.com/#/apps). 
+* The _User ID_ should uniquely identify the user on the particular device.
+* (The term _Ocra_ in the hostname `ocra.api.sinch.com` is just the name for the Sinch API that the SDK clients target)
 
 ## Specifying Capabilities
 
@@ -34,7 +36,7 @@ The _SINClient_ can be configured to enable specific functionality depending on 
 
 ## Starting the _SINClient_
 
-Before starting the client, make sure to assign a _SINClientDelegate_. It is required to implement `-[SINClientDelegate requiresRegistrationCredentials:]` to authenticate the client / _User_ (see following section for details on authorization).
+Before starting the client, assign a _SINClientDelegate_. It is required to implement `-[SINClientDelegate requiresRegistrationCredentials:]` to [Authorize the Client](doc:voice-ios-cloud-sinch-client#authorizing-the-client).
 
 ```objectivec
 // Assign as SINClientDelegate
@@ -53,7 +55,7 @@ sinchClient.delegate = ... ;
 >
 > If the application is meant to receive incoming calls while not running in foreground, [Push Notifications](doc:voice-ios-cloud-local-and-remote-push-notifications) are required.
 
-### Authorizing the Client / User
+### Authorizing the Client
 
 When the _SINClient_ is started with a given _User ID_ it is required to provide a registration token to register as towards the _Sinch backend_.
 
