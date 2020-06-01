@@ -31,7 +31,7 @@ The _Application Key_ is obtained from the Sinch Developer Dashboard. See [Produ
 
 _Note:_ All listener callbacks emitted from the Sinch SDK are invoked on the same thread that the call to `SinchClientBuilder.build` is made on. If the invoking thread is _not_ the main-thread, it needs to have an associated `Looper`.
 
-## Specify capabilities
+## Specify capabilitiesx
 
 The SinchClient can be configured to enable or disable certain functionality. Please see the [Reference](reference\index.html?com\sinch\android\rtc\SinchClient.html) for a comprehensive description of each capability.
 
@@ -51,7 +51,7 @@ Calling `startListeningOnActiveConnection` allows your application to receive in
 >
 > If the application is meant to only make outgoing calls but not receive incoming calls, don’t call `startListeningOnActiveConnection` or `setSupportManagedPush`. Outgoing calls can be made after calling the start method.
 
-> **Important**
+> **IMPORTANT**
 >
 > Enable [Managed Push](doc:voice-android-cloud-push-notifications) to be able to receive incoming calls via push notifications even when the application is closed or in background. Listening on an active connection in the background service is not possible due to new Android 9 requirements for such services, and the execution of such services is not guaranteed - the Android OS can 'kill' them at any time.
 
@@ -87,10 +87,10 @@ class MySinchClientListener implements SinchClientListener {
         // since storing the Application Secret in the client app is not safe.
         // Following code demonstrates how the JWT that serves as credential should be created,
         // provided the Application Key (APP_KEY), Application Secret (APP_SECRET) and User ID.
+
         // NB: JWT.create() should run on your backend, and return either valid JWT or signal that
         // user can't be registered.
-
-        // In the first case, register user with Sinch using acuired JWT via clientRegistration.register(...).
+        // In the first case, register user with Sinch using aquired JWT via clientRegistration.register(...).
         // In the latter - report failure by calling clientRegistration.registerFailed()
 
         @Override
@@ -103,13 +103,13 @@ class MySinchClientListener implements SinchClientListener {
 
 Look for specifics in [Application Authentication](doc:voice-android-cloud-application-authentication)
 
-> **Important**
+> **IMPORTANT**
 >
 > Do not store _Application Secret_ in the application and neither use `JWT` helper class in production, they are present in sample applications to demonstrate registration flow and provide a reference of how the signing of the registration token should be done. Implement the required functionality on your backend and fetch signed registration token when required.
 
 ### Registering the Client / User via UserController API
 
-You can also register a user towards the _Sinch backend_ via [UserController API](doc:voice-android-cloud-user-controller). This lightweight component provides a way to register the user without starting the _SincgClient_. You can also register push token for _Managed Push_ to receive incoming calls even when the application is closed/in background. The _UserController_ uses the very same authentication scheme as the _SinchClient_ based on the signed JWT registration token that you provide in response to _onRegistrationCredentialsRequired()_ method of [UserRegistrationCallback](reference\com\sinch\android\rtc\UserRegistrationCallback.html). The _UserController_ provides better control over the registration process then the _SinchClient_ by providing callbacks for each step of the registration.
+You can also register a user towards the _Sinch backend_ via [UserController API](doc:voice-android-cloud-user-controller). This lightweight component provides a way to register the user without starting the _SinchClient_. You can also register push token for _Managed Push_ to receive incoming calls even when the application is closed/in background. The _UserController_ uses the very same authentication scheme as the _SinchClient_ based on the signed JWT registration token that you provide in response to _onRegistrationCredentialsRequired()_ method of [UserRegistrationCallback](reference\com\sinch\android\rtc\UserRegistrationCallback.html). The _UserController_ provides better control over the registration process than the _SinchClient_ by providing callbacks for each step of the registration.
 
 ### Terminate the Sinch client
 

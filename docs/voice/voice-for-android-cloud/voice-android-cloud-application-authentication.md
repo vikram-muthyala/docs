@@ -51,7 +51,9 @@ The JWT must contain the following _claims_:
 | `exp`   | See [JWT RFC 7519 section-4.1.4](https://tools.ietf.org/html/rfc7519#4.1.4)       |
 | `nonce` | A unique cryptographic [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce) |
 
-**IMPORTANT**: The expiration time for the token itself (`exp`) should be set so that the _Time-to-Live_ of the token is not less than 1 minute.
+> **IMPORTANT**
+>
+> The expiration time for the token itself (`exp`) should be set so that the _Time-to-Live_ of the token is not less than 1 minute.
 
 ### Signing the JWT
 

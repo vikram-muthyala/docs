@@ -18,17 +18,17 @@ When an application is not running, or the `Active Connection` feature is not en
 
 By invoking `setSupportManagedPush(true)` the Sinch SDK will automatically register to _Firebase Cloud Messaging_ and the Sinch backend will initiate push messages to your application when needed. This feature requires _Google Play Services_ on the device. If you distribute your application through other channels than Google Play, push notifications will not be available on devices that do not have _Google Play Services_.
 
-If using the Sinch backend and _Firebase Cloud Messaging_ is not viable in the application, please see \[Push Notifications sent via your application server\]\[\] and \[Active connection\]\[\].
+If using the Sinch backend and _Firebase Cloud Messaging_ is not viable in the application, please see [Push Notifications sent via your application server](???) and [Active connection](https://developers.sinch.com/docs/voice-android-cloud-active-connection).
 
 As a developer, you will be responsible for implementing the code that receives the FCM push message. For an example implementation, please see the sample app “Sinch Push” which is bundled with the SDK.
 
-Sinch SDK moved from deprecated _Google Cloud Messaging_ (GCM) to it’s most up-to-date and Google-recommended version _Firebase Cloud Messaging_ (FCM), which requires client app to be modified in accordance with the Google’s official [GCM to FCM migration guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm)
+Sinch SDK moved from deprecated _Google Cloud Messaging_ (GCM) to its most up-to-date and Google-recommended version _Firebase Cloud Messaging_ (FCM), which requires client app to be modified in accordance with the Google’s official [GCM to FCM migration guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm)
 
 The following sections cover how to support receiving calls and messages via push notifications.
 
 ## FCM configuration file required (google-services.json)
 
-You can add Firebase to your app either semi-automatically using Android Studio, or manually [following this step-by-step official guide](https://firebase.google.com/docs/android/setup). In brief, to perform manual setup you first need to register your application in [firebase console](https://console.firebase.google.com/). If you already have GCM project, the console will prompt you to import it as new Firebase Cloud Messaging project. Register your application using the console, and download relevant google-services.json into your project’s main folder. More information about adding Firebase to your Android app can be found [here](https://firebase.google.com/docs/android/setup)
+You can add Firebase to your app either semi-automatically using Android Studio, or manually [following this step-by-step official guide](https://firebase.google.com/docs/android/setup). In brief, to perform manual setup you first need to register your application in [firebase console](https://console.firebase.google.com/). If your project already uses GCM, the console will prompt you to import it as new Firebase Cloud Messaging project. Register your application using the console, and download relevant google-services.json into your project’s main folder.
 
 Sample SDK projects _sinch-rtc-sample-push_ and _sinch-rtc-sample-video-push_ will require you to supply your own _google-services.json_ in order to be built. In the absence of this file, gradle will show relevant error with explanation and relevant links and stop the build. That _google-services.json_ file is the main mean of automatization of support of Firebase services to your app. Android Studio’s _‘com.google.gms.google-services’_ plugin parses and adds relevant resources and permissions to your applications manifest automatically.
 
@@ -80,7 +80,7 @@ if (SinchHelpers.isSinchPushPayload(remoteMessage.getData())) {
 }
 ```
 
-The returned `result` can be inspected to see whether the push was for an IM or a call using `result.isMessage()` and `result.isCall()`.
+The returned `result` can be inspected to see whether the push was for an instant message or a call using `result.isMessage()` and `result.isCall()`.
 
 ### Incoming call
 

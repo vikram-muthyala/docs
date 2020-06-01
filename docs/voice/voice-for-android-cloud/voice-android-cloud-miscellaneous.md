@@ -32,7 +32,7 @@ User IDs **must not** be longer than **40** characters.
 
 ## Encryption export regulations
 
-Please check the Summary of U.S. Export Controls Applicable to Commercial Encryption Products and ensure that the application is registered for the Encryption Regulations, if applicable. It can be found under this [link](http://www.sinch.com/).
+Please check the Summary of U.S. Export Controls Applicable to Commercial Encryption Products and ensure that the application is registered for the Encryption Regulations, if applicable. It can be found under this [link](???).
 
 ## Statistics
 
@@ -44,7 +44,7 @@ The statistics upload is done by the client in the background.
 
 ## Push Notifications sent via your application server
 
-In general we strongly recommend using _“managed push notifications”_, that is, when push notifications are sent directly from the Sinch cloud, which is described in the section \[Push notifications\]\[\]. The following section on the describes integrating support for push notifications but given that your application server maintain the connection with Google Cloud Messaging.
+In general we strongly recommend using _“managed push notifications”_, that is, when push notifications are sent directly from the Sinch cloud, which is described in the section [Push notifications](doc:voice-android-cloud-push-notifications). The following section describes the integration of push notifications, given that your application server maintains the connection with Google Cloud Messaging.
 
 An application is considered offline in the following scenarios:
 
@@ -167,4 +167,4 @@ This glossary defines some of the domain specific terms used throughout this doc
 
 ## Third party libraries and copyright notices
 
-All Third Party Libraries and Copyright notices can be found under this [link](http://www.sinch.com/legal/third-party-licenses/).tices can be found under this [link](http://www.sinch.com/legal/third-party-licenses/).
+All Third Party Libraries and Copyright notices can be found under this [link](http://www.sinch.com/legal/third-party-licenses/).

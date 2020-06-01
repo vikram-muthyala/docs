@@ -11,9 +11,14 @@ next:
 
 Sometimes it is desirable to limit the time-to-live (TTL) of the _User Instance_ by providing an expiration date and time while registering the _user identity_ against Sinch Service. When such _Instance_ is expired it is deleted from the Sinch backend, effectively making impossible to either make or receive calls from the particular device the _Instance_ was registered from.
 
-**IMPORTANT**: since each registered _User Instance_ is tied to a particular device, the expiration of the one _User Instance_ does not automatically makes other _Instances_ tied to the same user identity to expire.
+> **IMPORTANT**
+>
+> Since each registered _User Instance_ is tied to a particular device, the expiration of the one _User Instance_ does not automatically makes other _Instances_ tied to the same user identity to expire.
 
-**IMPORTANT**: It is also possible to extend the expiration date while the _User Instance_ is not yet expired, but it is prohibited to indefinitely extend the expiration date of the _User Instance_ that was initially registered with _non-infinite_ TTL. In other words: if the _Instance_ was initially registered with limited TTL, it expiration update should also have limited TTL.
+> **IMPORTANT**
+>
+> It is also possible to extend the expiration date while the _User Instance_ is not yet expired, but it is prohibited to indefinitely extend the expiration date of the _User Instance_ that was initially registered with _non-infinite_ TTL. In other words: if the _Instance_ was initially registered with limited TTL, its expiration update should also have limited TTL.
+
 
 ## Authenticating With Expiration Time
 
@@ -57,7 +62,9 @@ The JWT must contain the following _claims_:
 }
 ```
 
-**IMPORTANT**: miminal TTL of the _Instance_ is 48 hours. In other words: `sinch:rtc:instance:exp` - `iat` >= 48 \* 3600
+> **IMPORTANT**
+>
+> Minimal TTL of the _Instance_ is 48 hours. In other words: `sinch:rtc:instance:exp` - `iat` >= 48 \* 3600
 
 ## Updating the _User Instance_ expiry time
 
@@ -68,13 +75,15 @@ The _automatic update_ is triggered on the `SinchClient` start if the proximity 
 - if the original TTL was 8 days or more (e.g. a month or a year) an automatic update of the _User Instance_ expiry will be due 7 days prior the day of the expiry.
 - if the original TTL was less than 8 days (a.g. a two days, or a week) an automatic update of the _User Instance_ expiry will be due 24 hours prior the day of the expiry.
 
-**IMPORTANT**: `SinchClient` does not schedule automatic _Instance_ expiry updates. It checks the condition on each start, so if the client was not run between _automatic expiry update data_ and _expiration date_ - the _User Instance_ TTL will not be updated and it will expire.
+> **IMPORTANT**
+>
+> `SinchClient` does not schedule automatic _Instance_ expiry updates. It checks the condition on each start, so if the client was not run between _automatic expiry update data_ and _expiration date_ - the _User Instance_ TTL will not be updated and it will expire.
 
 The `SinchClient` will fire a callback `onRegistrationCredentialsRequired()` the same way it does during the initial registration (see previous topic **Application authentication**).
 
-If the update of the _User Instance_ expiration date is not desirable- meet the callback with `registerFailed()` - the _Instance_ will still be valid, but the old expiration date, and thus eventually expire.
+If the update of the User Instance expiration date is not desirable, you can meet the callback with registerFailed(); in this way the Instance will still be valid, but no update of the expiration date would be performed, and the Instance will eventually expire.
 
-If the update is desirable, provide a new JWT token with relevant `sinch:rtc:instance:exp` in `register(token)` and the same very _Instance_ will be updated with the new expiration date.
+If the update is desirable, provide a new JWT token with relevant `sinch:rtc:instance:exp` in `register(token)` and the very same _Instance_ will be updated with the new expiration date.
 
 ### Manual Update
 

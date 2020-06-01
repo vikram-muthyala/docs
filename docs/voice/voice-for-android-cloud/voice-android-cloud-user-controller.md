@@ -11,14 +11,14 @@ next:
 
 > **Note**
 >
-> UserController provides a way to register and user for incoming calls via push notifications while providing the callback about success / failure of such registration. You can also use it to un-register push token if receiving of incoming calls is no longer desireable.
+> UserController provides a way to register an user for incoming calls via push notifications, while providing the callback about success/failure of such registration. You can also use it to un-register push token if receiving of incoming calls is no longer desireable.
 
 There are certain situations where it is either desirable to explicitly register push token and/or get assurance that the push token is indeed registered, e.g.:
 
 - The application is designed to receive calls only, and thus must register push token with the Sinch backend on the very first start, while it's desirable to terminate SinchClient as soon as the registration concludes (e.g. to free resources). In this situation, the application should be notified by a specific callback on the registration result.
 - The application detects that FCM push token is invalidated and should be refreshed and re-registered with Sinch backend. Here, if SinchClient is running, it would take care of re-registering of the push token itself, otherwise the application is responsible for re-registering.
 
-Both situations should be handled with using new _UserController API_ (see [Reference](reference\com\sinch\android\rtc\UserController.html) which can be used independently from the _SinchClient_ and does not reuqire.
+Both situations should be handled with using new _UserController API_ (see [Reference](reference\com\sinch\android\rtc\UserController.html)), which can be used independently from the _SinchClient_ and does not require ???.
 
 ```java
 public UserController getUserController(String userId) {
@@ -89,19 +89,19 @@ User registration is a two step process, where first the step is registering _us
 
 ![Token-based User Registration](images\20200221-user_and_push_registration.png)
 
-> **Important**
+> **IMPORTANT**
 >
-> User Controller requires signed registration token the same way as it is required by the SinchClient for the first time. Provide it via [ClientRegistration.register()](reference\com\sinch\android\rtc\ClientRegistration.html) callback in response to _onCredetialsRequired()_.
+> User Controller requires signed registration token the same way as it is required by the SinchClient for the first time. Provide it via [ClientRegistration.register()](reference\com\sinch\android\rtc\ClientRegistration.html) callback in response to _onCredentialsRequired()_.
 > See more information about authentication [here](doc:voice-android-cloud-application-authentication).
 
-And the UI andvances to the next activity only when both conditions are met:
-
-- the SinchClient is started.
-- the push token is registered.
+When both conditions:
+- SinchClient is started
+- push token is registered
+are met, the authentication process has finished and e.g. UI can advance.
 
 > **Note**
 >
-> It is safe to close application right after receiving _tokenRegistered()_ callback - you'll keep receving incomng calls unless you _force stop_ the application or unregister the push token using _UserController_.
+> It is safe to close application right after receiving _tokenRegistered()_ callback - you'll keep receving incoming calls unless you _force stop_ the application or unregister the push token using _UserController_.
 
 ### Push token un-registration via _UserController_ API
 
