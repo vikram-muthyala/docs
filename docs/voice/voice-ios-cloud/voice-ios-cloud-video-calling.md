@@ -1,7 +1,7 @@
 ---
 title: Video Calling
 excerpt: >-
-  Set up video calls with the Sinch iOS Voice and Video SDK. Get more
+  Set up video calls with the Sinch iOS Voice & Video SDK. Get more
   information here.
 hidden: false
 next:
