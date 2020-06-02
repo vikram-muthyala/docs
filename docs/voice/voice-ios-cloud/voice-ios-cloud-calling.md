@@ -36,11 +36,15 @@ Also see [Handling Incoming Calls](doc:voice-ios-cloud-calling#handling-incoming
 
 An _App-to-Phone_ call is a call that is made to a phone on the regular telephone network. Setting up an _App-to-Phone_ call is not much different from setting up an _App-to-App_ call.
 
-Instead of invoking the `callUserWithId:` method, invoke the `callPhoneNumber:` method on the `SINCallClient` object. Sufficient funds must be available on the Sinch account and a valid phone number specified for the call to connect successfully. The phone number should be specified according to the E.164 number formatting (<http://en.wikipedia.org/wiki/E.164>) recommendation and should be prefixed with a ‘+’. E.g. to call the US phone number 415 555 0101, the phone number should be specified as “+14155550101”. The ‘+’ is the required prefix and the US country code ‘1’ prepended to the local subscriber number.
+Initiate a call to a phone number by calling the method `-[SINCallClient callPhoneNumber:]`. The phone number should be specified according to the [E.164_ number formatting standard](https://en.wikipedia.org/wiki/E.164) and should be prefixed with a ‘+’.
 
-Placing an _App-to-Phone_ call requires an account with credits; topping up credits can be done on the Account page. Credits are used each time an _App-to-Phone_ call is placed and the balance history is updated after each call.
+__Example__: To call the US phone number _415 555 0101_, the phone number should be specified as `+14155550101`. The `‘+’` is the required prefix and the US country code `‘1’` prepended to the local subscriber number.
 
 _App-to-Phone_ calls can be tested by calling the following test number: _+46000000000_. When placing a call to this number, you will hear a voice prompt stating that the call has been connected, and shortly after that the call will automatically be ended.
+
+> ⚠ Credits Required
+>
+> Placing an _App-to-Phone_ call requires that your Sinch account has sufficient credits; Top up credits on your [Account](https://portal.sinch.com/#/account) page. Credits are used each time an _App-to-Phone_ call is placed and your account balance is updated after each call.
 
 ## Setting Up an _App-to-SIP_ Call
 
