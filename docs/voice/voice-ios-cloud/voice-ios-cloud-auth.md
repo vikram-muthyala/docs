@@ -108,7 +108,7 @@ The derived signing key would in this case be `AZj5EsS8S7wb06xr5jERqPHsraQt3w/+I
 
 __Final Encoded JWT__:
 
-> **Note**
+> ⚠
 >
 > JWT below is only one of many possible JWT encodings of the input above. The example below is with the JSON header and payload as shown above, but with compact/minified JSON serialization and with dictionary key ordering preserved.
 
@@ -151,7 +151,8 @@ client.delegate = ...;
 }
 ```
 
-> **Note**
+> ⚠
+>
 > The client _MAY_ also ask for a registration token on subsequent starts.
 
 
