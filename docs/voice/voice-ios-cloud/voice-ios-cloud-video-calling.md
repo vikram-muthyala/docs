@@ -8,12 +8,11 @@ next:
     - voice-ios-cloud-local-and-remote-push-notifications
 ---
 
-## Setting up a video call
+## Setting Up a Video Call
 
-Just like audio calls, video calls are placed through the `SINCallClient` and events are received using the `SINCallClientDelegate`. The call client is owned by the SinchClient and accessed using `[sinchClient callClient]`. Calling is not enabled by default.
-For a more general introduction to calling with the SinchClient, see [Calling](doc:voice-ios-cloud-calling).
+Just like audio calls, video calls are placed through the `SINCallClient` and events are received using the `SINCallClientDelegate` and `SINCallDelegate`. For a more general introduction to calling and `SINCallClient`, see [Calling](doc:voice-ios-cloud-calling).
 
-## Showing the video streams
+## Showing the Video Streams
 
 The following examples for showing video streams will be based on the assumption of a view controller having the following properties:
 
@@ -26,7 +25,7 @@ The following examples for showing video streams will be based on the assumption
 @end
 ```
 
-### Showing a preview of the local video stream
+### Showing a Preview of the Local Video Stream
 
 ```objectivec
 - (void)viewDidLoad {
@@ -34,13 +33,14 @@ The following examples for showing video streams will be based on the assumption
 
   id<SINVideoController> videoController = ... // get video controller from SINClient.
 
-  [self.localVideoView addSubview:[self.videoController localView]];
+  [self.localVideoView addSubview:[videoController localView]];
 }
 ```
 
-### Showing remote video streams
+### Showing Remote Video Streams
 
-Once you have created a `SINCallClientDelegate` and added it to a call, the method `callDidAddVideoTrack:` will be called.
+Once the remote video stream is available, the delegate method `-[SINCall callDidAddVideoTrack:]` will be called and you can use that to attach the Sinch video controller view to your application view hierarchy so that the stream is rendered. 
+
 
 ```objectivec
 - (void)callDidAddVideoTrack:(id<SINCall>)call {
@@ -51,54 +51,35 @@ Once you have created a `SINCallClientDelegate` and added it to a call, the meth
 }
 ```
 
-### Pausing video stream
+(The remote stream will automatically be rendered into the view provided by `-[SINVideoController remoteView]`.)
 
-To pause the local video stream, use the `pauseVideo` method on the call.
+### Pausing and Resuming a Video Stream
+
+To pause the local video stream, use the method `-[SINCall pauseVideo]`. To resume the local video stream, use the method `-[SINCall resumeVideo]`.
 
 ```objectivec
 // Pause the video stream.
 [call pauseVideo];
-```
 
-### Resuming video stream
-
-To resume the local video stream, use the `resumeVideo` method on the call.
-
-```objectivec
 // Resume the video stream.
 [call resumeVideo];
 ```
 
-### Pausing video stream delegates
+The call delegate will be notified of pause- and resume events via the delegate callback methods `-[SINCallDelegate callDidPauseVideoTrack:]` and `-[SINCallDelegate callDidResumeVideoTrack:]`. It is for example appropriate to based on these events update the UI with a pause indicator, and subsequently remove such pause indicator.
 
-Once you have created a `SINCallClientDelegate` and added it to a call, the method `callDidPauseVideoTrack:` will be called when the remote user pause the video stream.
+### Video Content Fitting and Aspect Ratio
 
-```objectivec
-- (void)callDidPauseVideoTrack:(id<SINCall>)call {
-  // Implement what to be done when remote user pause video stream.
-```
-
-### Resuming video stream delegates
-
-Once you have created a `SINCallClientDelegate` and added it to a call, the method `callDidResumeVideoTrack:` will be called when the remote user resumes the video stream.
-
-```objectivec
-- (void)callDidResumeVideoTrack:(id<SINCall>)call {
-  // Implement what to be done when remote user resumes video stream.
-```
-
-### Video content fitting and aspect ratio
-
-How the rendered video stream is fitted into a view can be controlled by the regular `-[UIView contentMode]` property. I.e. assigning `contentMode` on a view returned by `-[SINVideoController remoteView]` or `-[SINVideoController localView]` will affect how the video content is laid out. Note though that only `UIViewContentModeScaleAspectFit` and `UIViewContentModeScaleAspectFill` will be respected.
+How the rendered video stream is fitted into a view can be controlled by the regular property `UIView.contentMode`. I.e. assigning `contentMode` on a view returned by `-[SINVideoController remoteView]` or `-[SINVideoController localView]` will affect how the video content is laid out. Note though that only `UIViewContentModeScaleAspectFit` and `UIViewContentModeScaleAspectFill` will be respected.
 
 **Example**
 
 ```objectivec
-id<SINVideoController> videoController;
-videocontroller.remoteView.contentMode = UIViewContentModeScaleAspectFill;
+id<SINVideoController> videoController = ... // get video controller from SINClient.
+
+[videoController remoteView].contentMode = UIViewContentModeScaleAspectFill;
 ```
 
-### Full screen
+### Full Screen Mode
 
 The Sinch SDK provides helper functions to transition a video view into fullscreen mode. These are provided as Objective-C category methods for the `UIView` class and are defined in `SINUIView+Fullscreen.h` (_SINUIViewFullscreenAdditions_).
 
@@ -120,44 +101,35 @@ The Sinch SDK provides helper functions to transition a video view into fullscre
   }
 ```
 
-### Accessing video frames of the remote streams
+### Accessing Raw Video Frames from Remote Streams
 
-The Sinch SDK provides developers a callback to access the video frames of the remote streams. So you can process the video frames with your own implementation to achieve rich functionalities, e.g., applying filters, adding stickers to the video frames, or saving the video frame as an image.
+The Sinch SDK provides access to the raw video frames of the remote video streams. This allows you to process the video frames with your own implementation to achieve rich functionalities, e.g. applying filters, adding stickers to the video frames, or saving a frame as an image.
 
-Your video frame handler needs to conform `SINVideoFrameCallback` protocol by implementing the `onFrame:` callback. Note that you need to explicitly release the video frame by calling `[videoFrame releaseFrame]`.
+Perform custom video frame processing by implementing `SINRemoteVideoFrameCallback` / `SINLocalVideoFrameCallback` and register it using `-[SINVideoController setRemoteVideoFrameCallback:]` and `-[SINVideoController setLocalVideoFrameCallback:]`. The callback handler will provide the frame in the form of a [`CVPixelBufferRef`](https://developer.apple.com/documentation/corevideo/cvpixelbuffer?language=objc), and a completion handler block that you __must__ invoke, passing the processed output frame (also as a `CVPixelBufferRef`) as argument. The implementation of the frame callback hander __must__ retain (and release) the buffer using [CVPixelBufferRetain](https://developer.apple.com/documentation/corevideo/1563590-cvpixelbufferretain?language=objc) and [CVPixelBufferRelease](https://developer.apple.com/documentation/corevideo/1563589-cvpixelbufferrelease?language=objc).
 
 **Example**
 
 ```objectivec
-// YourVideoFrameHandler.h
-// Conform SINVideoFrameCallback protocol
-@interface YourVideoFrameHandler : NSObject<SINVideoFrameCallback>
-    ... // Handler specific declarations
-@end
-```
-
-```sourceCode objectivec
-// YourVideoFrameHandler.m
-// Implement onFrame: callback
-@implementation YourVideoFrameHandler
-- (void)onFrame:(id<SINVideoFrame>)videoFrame callId:(NSString *)callId {
-  ... // Process videoFrame
-  [videoFrame releaseFrame]; // Release videoFrame
+// Implementation of -[SINVideoFrameCallback onFrame:completionHandler:]
+- (void)onFrame:(CVPixelBufferRef)inputPixelBuffer
+    completionHandler:(void (^)(CVPixelBufferRef))completionHandler {
+  CVPixelBufferRetain(inputPixelBuffer);
+  
+  // Use GCD dispatch to process frame async.
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    CVPixelBufferRef outputPixelBuffer = ... // Perform actual processing.
+    completionHandler(outputPixelBuffer);
+    CVPixelBufferRelease(outputPixelBuffer); // Release your intermediate processing output buffer.
+    CVPixelBufferRelease(inputPixelBuffer); // Release the original input frame buffer.
+  });
 }
-@end
 ```
 
-Use `-[SINVideoController setVideoFrameCallback:]` to register your video frame handler as the callback to receive video frames.
+__NOTE__: It is recommended to perform frame processing asynchronously using [GCD](https://developer.apple.com/documentation/dispatch?language=objc), using a dedicated queue and tune the queue priority to your use case. If you are processing each and every frame (e.g. applying a filter), it is recommended to use a high priority queue. If you are only processing some frames, e.g. saving snapshot frames based on user action, then it may be more appropriate to use a low priority background queue.
 
-```objectivec
-YourVideoFrameHandler* videoFrameHandler;
-id<SINVideoController> videoController = ... // Get video controller from SINClient.
-[videoController setVideoFrameCallback: videoFrameHandler];
-```
+### Converting a Video Frame to `UIImage`
 
-### Converting video frame to UIImage
-
-The Sinch SDK provides helper functions to convert `id<SINVideoFrame>` to `UIImage*`. It is handy to get the `UIImage` representation of `SINVideoFrame` by calling function `SINUIImageFromVideoFrame()`. Note that the helper function will _NOT_ release the video frame.
+The Sinch SDK provides the helper function `SINUIImageFromPixelBuffer(CVPixelBufferRef)` to convert `CVPixelBufferRef` to `UIImage*`.
 
 ```objectivec
 #import "SINVideoController.h" // To use SINUIImageFromVideoFrame()
@@ -165,3 +137,5 @@ The Sinch SDK provides helper functions to convert `id<SINVideoFrame>` to `UIIma
 id<SINVideoFrame> videoFrame = ... // Get SINVideoFrame from onFrame: callback
 UIImage *image = SINUIImageFromVideoFrame(videoFrame);
 ```
+
+__IMPORTANT__: The helper function will __not__ release the frame buffer (i.e. you must still call `CVPixelBufferRelease` after using this helper function.)
