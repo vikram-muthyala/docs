@@ -41,7 +41,7 @@ The locally captured stream is rendered into the view provided by [`-[SINVideoCo
 
 ### Showing Remote Video Streams
 
-Once the remote video stream is available, the delegate method `-[SINCall callDidAddVideoTrack:]` will be called and you can use that to attach the Sinch video controller view to your application view hierarchy so that the stream is rendered. 
+Once the remote video stream is available, the delegate method `-[SINCall callDidAddVideoTrack:]` will be called and you can use that to attach the Sinch video controller view ([`-[SINVideoController remoteView]`](reference\html\Protocols\SINVideoController.html)) to your application view hierarchy so that the stream is rendered.
 
 
 ```objectivec
