@@ -31,7 +31,7 @@ The _Application Key_ is obtained from the Sinch Developer Dashboard. See [Produ
 
 _Note:_ All listener callbacks emitted from the Sinch SDK are invoked on the same thread that the call to `SinchClientBuilder.build` is made on. If the invoking thread is _not_ the main-thread, it needs to have an associated `Looper`.
 
-## Specify capabilitiesx
+## Specify capabilities
 
 The SinchClient can be configured to enable or disable certain functionality. Please see the [Reference](reference\index.html?com\sinch\android\rtc\SinchClient.html) for a comprehensive description of each capability.
 

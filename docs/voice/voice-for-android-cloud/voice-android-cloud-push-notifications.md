@@ -18,7 +18,7 @@ When an application is not running, or the `Active Connection` feature is not en
 
 By invoking `setSupportManagedPush(true)` the Sinch SDK will automatically register to _Firebase Cloud Messaging_ and the Sinch backend will initiate push messages to your application when needed. This feature requires _Google Play Services_ on the device. If you distribute your application through other channels than Google Play, push notifications will not be available on devices that do not have _Google Play Services_.
 
-If using the Sinch backend and _Firebase Cloud Messaging_ is not viable in the application, please see [Push Notifications sent via your application server](???) and [Active connection](https://developers.sinch.com/docs/voice-android-cloud-active-connection).
+If using the Sinch backend and _Firebase Cloud Messaging_ is not viable in the application, please see [Active connection](https://developers.sinch.com/docs/voice-android-cloud-active-connection).
 
 As a developer, you will be responsible for implementing the code that receives the FCM push message. For an example implementation, please see the sample app “Sinch Push” which is bundled with the SDK.
 
