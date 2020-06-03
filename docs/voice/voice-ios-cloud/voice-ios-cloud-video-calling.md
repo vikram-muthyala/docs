@@ -27,6 +27,8 @@ The following examples for showing video streams will be based on the assumption
 
 ### Showing a Preview of the Local Video Stream
 
+The locally captured stream is rendered into the view provided by [`-[SINVideoController localView]`](reference\html\Protocols\SINVideoController.html) when it is attached to the application UI view hierarchy.
+
 ```objectivec
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -81,7 +83,7 @@ id<SINVideoController> videoController = ... // get video controller from SINCli
 
 ### Full Screen Mode
 
-The Sinch SDK provides helper functions to transition a video view into fullscreen mode. These are provided as Objective-C category methods for the `UIView` class and are defined in `SINUIView+Fullscreen.h` (_SINUIViewFullscreenAdditions_).
+The Sinch SDK provides helper functions to transition a video view into fullscreen mode. These are provided as Objective-C category methods for the `UIView` class and are defined in `SINUIView+Fullscreen.h` (`SINUIViewFullscreenAdditions`).
 
 **Example**
 
@@ -99,6 +101,26 @@ The Sinch SDK provides helper functions to transition a video view into fullscre
       [view sin_enableFullscreen:YES];  // Pass YES to animate the transition
     }
   }
+```
+
+### Camera Selection (Front/Back)
+
+Select the front or back camera using `-[SINVideoController captureDevicePosition:]`.
+
+__Example__
+
+```objectivec
+- (IBAction)onUserSelectedBackCamera:(id)sender {
+  id<SINVideoController> videoController = ... // get video controller from SINClient.
+
+  videoController.captureDevicePosition = AVCaptureDevicePositionBack;
+}
+
+- (IBAction)onUserSelectedFrontCamera:(id)sender {
+  id<SINVideoController> videoController = ... // get video controller from SINClient.
+
+  videoController.captureDevicePosition = AVCaptureDevicePositionFront;
+}
 ```
 
 ### Accessing Raw Video Frames from Remote Streams
